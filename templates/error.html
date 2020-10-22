@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>
+            Something went wrong!
+        </title>
+        <link href="https://fonts.googleapis.com/css2?family=Cairo&display=swap" rel="stylesheet">
+        <style>
+            body {
+                background-color: #f0f7f7;
+            }
+            .error {
+                top: 50%;
+                left: 50%;
+                position: absolute;
+                transform: translate(-50%,-50%);
+                color: #05445E;
+                font-family: 'Cairo', sans-serif;
+                font-size: 42px;
+            }
+            a {
+                color: #2b82a6;
+                text-decoration: none;
+            }
+            a:hover {
+                color: #094b66;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="error">
+            Please <a href="{{ url_for('signin')}}">Log In</a> first! 
+        </div>
+    </body>
+</html>

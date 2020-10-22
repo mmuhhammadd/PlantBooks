@@ -1,0 +1,313 @@
+{% extends "layout.html" %}
+{% block style %}
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@200&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cairo&display=swap" rel="stylesheet">
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+<style>
+html {
+    width: 100%;
+    height: 100%;
+}
+body {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    background-color: #f0f7f7;
+}
+.navbar {
+    background-color: #05445E;
+    width: 100%;
+    height: 60px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+#form {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+input {
+    border: none;
+    outline: none;
+    background-color: #094b66;
+    color: white;
+    height: 75%;
+}
+input::placeholder{
+    font-family: 'Work Sans', sans-serif;
+    color: white;
+    opacity: .6;
+    padding-left: 3px;
+}
+input:focus{
+    border: none;
+    outline: none;
+    border-bottom: 3px solid #D4F1F4;
+    transition: .1s ease;
+    }
+#search {
+    background-color: #094b66;
+    border: 0;
+    outline: 0;
+    color: white;
+    height: 75%;
+    border-left: 4px solid #05445E;
+}
+#search:focus {
+    border: 0;
+    outline: 0;
+    border-left: 4px solid #05445E;
+}
+#logout {
+    background-color: inherit;
+    border: 0;
+    outline: 0;
+    color: white;
+    height: 75%;
+    font-family: 'Cairo', sans-serif;
+
+}
+#logout:focus {
+    border: 0;
+    outline: 0;
+    border-bottom: 3px solid #D4F1F4;
+    transition: .1s ease;
+}
+.wrapper {
+    width: 100%;
+    padding: 10px;
+    margin-top: 60px;
+    justify-content: space-around;
+    align-items: center;
+    display: flex;
+    flex-flow: row wrap;
+}
+
+#details {
+    background-color: #05445E;
+    color: white;
+    padding: 20px;
+    width: 100%;
+}
+.book {
+    width: 450px;
+}
+.reviews {
+    color: #05445E;
+}
+#msg {
+    font-size: 38px;
+    margin: 10px;
+    font-family: 'Cairo', sans-serif;
+}
+#title {
+    font-family: 'Cairo', sans-serif;
+    font-size: 38px;
+}
+table {
+    width: 100%;
+}
+td {
+    background-color: #094b66;
+    border-bottom: 3px solid #05445E;
+    border-right: 3px solid #05445E;
+    padding: 10px;
+    font-family: 'Work Sans', sans-serif;
+}
+.reviews {
+    color: white;
+    background-color: #05445E;
+    margin-top: 20px;
+    padding: 20px;
+}
+#review{
+    background-color: #094b66;
+    height: auto;
+    padding: 10px;
+    font-family: 'Work Sans', sans-serif;
+    margin-bottom: 10px;
+}
+.rvs {
+    margin-left: 20px;
+}
+#user {
+    font-family: 'Cairo', sans-serif;
+    font-size: 22px;
+    color: #ECF87F;
+}
+#notrev {
+    margin-left: 20px;
+    font-size: 22px;
+    font-family: 'Work Sans', sans-serif;
+    color: #ECF87F;
+}
+.addreview {
+    width: 450px;
+    margin-top: 20px;
+    color: white;
+    background-color: #05445E;
+}
+.form {
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+}
+label {
+    font-family: 'Cairo', sans-serif;
+}
+select {
+    background-color: #094b66;
+    border: 1px solid #094b66;
+    padding: 2px;
+    color: white;
+    margin-bottom: 20px;
+    height: 35px;
+}
+
+option {
+    color: white;
+    font-family: 'Work Sans', sans-serif;
+    background-color: #094b66;
+    margin: 5px;
+}
+option:hover {
+    background-color: #094b66;
+}
+select:focus {
+    border: 0;
+    outline: 0;
+    border: 1px solid white;
+    border-radius: 8px;
+}
+textarea {
+    height: 90px;
+    background-color: #094b66;
+    border: none;
+    outline: 0;
+    padding: 10px;
+    font-family: 'Work Sans', sans-serif;
+    color: white;
+    margin-bottom: 10px;
+}
+textarea:focus {
+    border: 1px solid white;
+    border-radius: 8px;
+}
+#submit {
+    background-color: #05445E;
+    color: white;
+    font-family: 'Cairo', sans-serif;
+    outline: 0;
+    border: 0;
+    width: auto;
+}
+#submit:focus {
+    border-bottom: 3px solid #D4F1F4;
+}
+.alert {
+    border-radius: 0;
+    font-family: 'Cairo', sans-serif;
+    height: auto;
+}
+#add {
+    font-size: 38px;
+    color: #ECF87F;
+    font-family: 'Cairo', sans-serif;
+    margin: 20px;
+}
+</style>
+{% endblock %}
+{% block body %}
+<div class="navbar">
+    <form action="{{ url_for('search')}}" method="POST" id="form">
+        <input type="search" name="search" placeholder="Search books">
+        <button id="search"><i class="fas fa-search fa-lg"></i></button>
+    </form> 
+    <div>
+        <form action="{{ url_for('signin')}}" method="POST">
+            <button id="logout">Log Out</button>
+        </form>
+    </div>
+</div>
+<div class="wrapper">
+    <div class="book">
+        <div id="details">
+            <div id="title">{{ book.title }}</div>
+            <table>
+                <tr>
+                    <td>Author</td>
+                    <td>{{ book.author }}</td>
+                </tr>
+                <tr>
+                    <td>Published</td>
+                    <td>{{ book.year }}</td>
+                </tr>
+                <tr>
+                    <td>Isbn</td>
+                    <td>{{ book.isbn }}</td>
+                </tr>
+                <tr>
+                    <td>Average rating</td>
+                    <td>{{ avr }}</td>
+                </tr>
+                <tr>
+                    <td>Ratings count</td>
+                    <td>{{ wrc }}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="reviews">
+            <h1 id="msg">Reviews</h1>
+            {% if not reviews: %}
+                <div id="notrev">No reviews for this book yet!</div>
+            {% else %}
+                {% for review in reviews %}
+                    <div class="rvs"> 
+                        <div id="user">{{ review.username }}</div>
+                        <div id="review">"{{ review.review }}"</div>
+                        <table>
+                            <tr>
+                                <td>Rating</td>
+                                <td>{{ review.rating }}/5</td>
+                            </tr>
+                        </table>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+    <div class="addreview">
+        <div id="message">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-warning alert-dismissible" role="alert">{{message}}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
+        <div id="add">Add review</div>
+        <form action="http://127.0.0.1:5000/addreview?isbn={{ book.isbn }}" class="form" method="POST">
+            <label for="rating">Add rating</label>
+            <select name="rating" id="select">
+                <option value="-" disabled selected ></option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+            <label for="review">Add review</label>
+            <textarea name="review"></textarea>
+            <button id="submit">Submit</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
